@@ -3,24 +3,12 @@ require 'bundler/setup'
 
 PACKAGE_NAME = "hello"
 VERSION = "1.0.0"
-TRAVELING_RUBY_VERSION = "20150210-2.1.5"
+TRAVELING_RUBY_VERSION = "20150715-2.1.6"
 
 desc "Package your app"
-task :package => ['package:linux:x86', 'package:linux:x86_64', 'package:osx']
+task :package => ['package:osx']
 
 namespace :package do
-  namespace :linux do
-    desc "Package your app for Linux x86"
-    task :x86 => [:bundle_install, "packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-linux-x86.tar.gz"] do
-      create_package("linux-x86")
-    end
-
-    desc "Package your app for Linux x86_64"
-    task :x86_64 => [:bundle_install, "packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-linux-x86_64.tar.gz"] do
-      create_package("linux-x86_64")
-    end
-  end
-
   desc "Package your app for OS X"
   task :osx => [:bundle_install, "packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-osx.tar.gz"] do
     create_package("osx")
@@ -40,14 +28,6 @@ namespace :package do
     sh "rm -rf packaging/tmp"
     sh "rm -f packaging/vendor/*/*/cache/*"
   end
-end
-
-file "packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-linux-x86.tar.gz" do
-  download_runtime("linux-x86")
-end
-
-file "packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-linux-x86_64.tar.gz" do
-  download_runtime("linux-x86_64")
 end
 
 file "packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-osx.tar.gz" do

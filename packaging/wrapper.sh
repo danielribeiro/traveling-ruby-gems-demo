@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 # Figure out where this script is located.
 SELFDIR="`dirname \"$0\"`"
