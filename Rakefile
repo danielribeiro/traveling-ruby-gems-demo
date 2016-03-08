@@ -45,6 +45,7 @@ def create_package(target)
   sh "mkdir #{package_dir}/ruby"
   sh "tar -xzf packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-#{target}.tar.gz -C #{package_dir}/ruby"
   sh "cp traveling-ruby-deps/ruby.sh #{package_dir}/"
+  sh "cp traveling-ruby-deps/bundle.sh #{package_dir}/"
   sh "cp -pR packaging/vendor #{package_dir}/"
   sh "cp Gemfile Gemfile.lock #{vendor_dir}/"
   sh "mkdir #{vendor_dir}/.bundle"
