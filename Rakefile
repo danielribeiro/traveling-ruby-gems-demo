@@ -19,13 +19,13 @@ namespace :package do
       abort "You can only 'bundle install' using Ruby 2.1, because that's what Traveling Ruby uses."
     end
     sh "rm -rf packaging/tmp"
-    sh "mkdir packaging/tmp"
+    sh "mkdir -p packaging/tmp"
     sh "cp Gemfile Gemfile.lock packaging/tmp/"
     Bundler.with_clean_env do
       sh "cd packaging/tmp && env BUNDLE_IGNORE_CONFIG=1 bundle install --path ../vendor --without development"
     end
     sh "rm -rf packaging/tmp"
-    sh "rm -f packaging/vendor/*/*/cache/*"
+    sh "rm -rf packaging/vendor/*/*/cache/*"
   end
 end
 

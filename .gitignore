@@ -3,3 +3,4 @@
 travelling_ruby_package_dir*
 *.tar.gz
 vendor
+packaging
