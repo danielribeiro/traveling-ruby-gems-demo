@@ -1,5 +1,5 @@
 .DS_Store
 .bundle
-hello-1.0.0-*
+travelling_ruby_package_dir*
 *.tar.gz
 vendor
