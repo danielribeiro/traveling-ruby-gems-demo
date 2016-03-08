@@ -1,8 +1,7 @@
 # For Bundler.with_clean_env
 require 'bundler/setup'
 
-PACKAGE_NAME = "hello" # todo configure this
-VERSION = "1.0.0" # todo configure this
+PACKAGE_NAME = "travelling_ruby_package_dir" # todo configure this
 TRAVELING_RUBY_VERSION = "20150715-2.1.6"
 
 desc "Package your app"
@@ -36,20 +35,21 @@ file "packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-osx.tar.gz" do
 end
 
 def create_package(target)
-  package_dir = "traveling_ruby_package_dir_#{PACKAGE_NAME}-#{VERSION}-#{target}"
+  package_dir = PACKAGE_NAME
+  vendor_dir = "#{package_dir}/vendor"
   sh "rm -rf #{package_dir}"
   sh "mkdir #{package_dir}"
-  sh "mkdir -p #{package_dir}/lib/app"
-  sh "cp -rf lib #{package_dir}/lib/app/" # todo configure this
-  sh "mkdir #{package_dir}/lib/ruby"
-  sh "tar -xzf packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-#{target}.tar.gz -C #{package_dir}/lib/ruby"
+  sh "mkdir -p #{package_dir}"
+  sh "cp -rf lib #{package_dir}/" # todo configure this
+  sh "mkdir #{package_dir}/ruby"
+  sh "tar -xzf packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-#{target}.tar.gz -C #{package_dir}/ruby"
   sh "cp packaging/wrapper.sh #{package_dir}/hello" # todo configure this
-  sh "cp -pR packaging/vendor #{package_dir}/lib/"
-  sh "cp Gemfile Gemfile.lock #{package_dir}/lib/vendor/"
-  sh "mkdir #{package_dir}/lib/vendor/.bundle"
-  sh "cp packaging/bundler-config #{package_dir}/lib/vendor/.bundle/config"
+  sh "cp -pR packaging/vendor #{package_dir}/"
+  sh "cp Gemfile Gemfile.lock #{vendor_dir}/"
+  sh "mkdir #{vendor_dir}/.bundle"
+  sh "cp packaging/bundler-config #{vendor_dir}/.bundle/config"
   unless ENV['DIR_ONLY']
-    sh "tar -czf #{package_dir}.tar.gz #{package_dir}"
+    sh "cd #{package_dir} && tar -czf ../#{package_dir}.tar.gz ."
     # sh "rm -rf #{package_dir}"
   end
 end
