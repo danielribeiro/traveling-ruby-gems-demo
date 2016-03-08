@@ -43,15 +43,15 @@ def create_package(target)
   sh "cp -rf lib #{package_dir}/" # todo configure this
   sh "mkdir #{package_dir}/ruby"
   sh "tar -xzf packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-#{target}.tar.gz -C #{package_dir}/ruby"
-  sh "cp packaging/wrapper.sh #{package_dir}/hello" # todo configure this
+  sh "cp packaging/ruby.sh #{package_dir}/"
   sh "cp -pR packaging/vendor #{package_dir}/"
   sh "cp Gemfile Gemfile.lock #{vendor_dir}/"
   sh "mkdir #{vendor_dir}/.bundle"
   sh "cp packaging/bundler-config #{vendor_dir}/.bundle/config"
-  unless ENV['DIR_ONLY']
-    sh "cd #{package_dir} && tar -czf ../#{package_dir}.tar.gz ."
+  # unless ENV['DIR_ONLY']
+    # sh "cd #{package_dir} && tar -czf ../#{package_dir}.tar.gz ."
     # sh "rm -rf #{package_dir}"
-  end
+  # end
 end
 
 def download_runtime(target)
