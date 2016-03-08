@@ -6,6 +6,7 @@ VERSION = "1.0.0"
 TRAVELING_RUBY_VERSION = "20150715-2.1.6"
 
 desc "Package your app"
+task default: :package
 task :package => ['package:osx']
 
 namespace :package do
@@ -49,7 +50,7 @@ def create_package(target)
   sh "cp packaging/bundler-config #{package_dir}/lib/vendor/.bundle/config"
   if !ENV['DIR_ONLY']
     sh "tar -czf #{package_dir}.tar.gz #{package_dir}"
-    sh "rm -rf #{package_dir}"
+    # sh "rm -rf #{package_dir}"
   end
 end
 
