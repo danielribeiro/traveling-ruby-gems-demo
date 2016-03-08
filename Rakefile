@@ -1,7 +1,6 @@
 # For Bundler.with_clean_env
 require 'bundler/setup'
-
-PACKAGE_NAME = "travelling_ruby_package_dir" # todo configure this
+require_relative "traveling_config"
 TRAVELING_RUBY_VERSION = "20150715-2.1.6"
 
 desc "Package your app"
@@ -40,7 +39,9 @@ def create_package(target)
   sh "rm -rf #{package_dir}"
   sh "mkdir #{package_dir}"
   sh "mkdir -p #{package_dir}"
-  sh "cp -rf lib #{package_dir}/" # todo configure this
+  PACKAGING_DIRS.each do |dir|
+    sh "cp -rf #{dir} #{package_dir}/"
+  end
   sh "mkdir #{package_dir}/ruby"
   sh "tar -xzf packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-#{target}.tar.gz -C #{package_dir}/ruby"
   sh "cp packaging/ruby.sh #{package_dir}/"
