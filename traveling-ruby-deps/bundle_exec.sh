@@ -1,4 +1,6 @@
 #!/bin/bash
+# Based of https://github.com/phusion/traveling-ruby/issues/26#issuecomment-71360971
+
 set -ex
 
 # Figure out where this script is located.
